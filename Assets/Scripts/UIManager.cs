@@ -17,10 +17,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _restartLevelText;
     private GameManager _gameManager;
+    [SerializeField]
+    private Text _shieldsText;
 
     void Start()
     {
         _scoreText.text = "Score: " + 0;
+        _shieldsText.text = "Shields Health: " + 0;
         _gameOverText.gameObject.SetActive(false);
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -35,6 +38,11 @@ public class UIManager : MonoBehaviour
     public void  UpdateScore(int playerScore)
     {
         _scoreText.text = "Score: " + playerScore.ToString();
+    }
+
+    public void UpdateShields(int shieldHealth)
+    {
+        _shieldsText.text = "Shields Health: " + shieldHealth.ToString();
     }
 
     public void UpdateLives(int currentLives)

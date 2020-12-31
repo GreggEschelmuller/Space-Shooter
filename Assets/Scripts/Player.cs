@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
+    private int _shieldHealth = 3;
     [SerializeField]
     private GameObject _tripleShot;
 
@@ -123,8 +124,17 @@ void Start()
     {
         if (_isShieldsActive == true)
         {
-            _isShieldsActive = false;
-            _shieldVisualizer.SetActive(false);
+            if (_shieldHealth > 1)
+            {
+                _shieldHealth -= 1;
+                _uiManager.UpdateShields(_shieldHealth);
+            }
+            else
+            {
+                _uiManager.UpdateShields(0);
+                _isShieldsActive = false;
+                _shieldVisualizer.SetActive(false);
+            }
             return;
         }
         else
@@ -176,6 +186,8 @@ void Start()
     {
         _isShieldsActive = true;
         _shieldVisualizer.SetActive(true);
+        _shieldHealth = 3;
+        _uiManager.UpdateShields(_shieldHealth);
     }
 
     public void AddScore(int points)
