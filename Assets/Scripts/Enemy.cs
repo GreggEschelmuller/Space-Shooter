@@ -8,9 +8,14 @@ public class Enemy : MonoBehaviour
     private float _speed = 4.0f;
     private Player _player;
     private Animator _deathAnimation;
+    [SerializeField]
+    private GameObject _laserPrefab;
 
     [SerializeField]
     private AudioSource _explosion;
+    private float _fireRate = 3.0f;
+    private float _canFire = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +41,29 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CalculateMovement();
+
+        if(Time.time > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.time + _fireRate;
+            GameObject enemyLaser = Instantiate(_laserPrefab, transform.position, Quaternion.identity);
+            Laser[] lasers = enemyLaser.GetComponentsInChildren<Laser>();
+
+            for (int i = 0; i < lasers.Length; i++)
+            {
+                lasers[i].AssignEnemyLaser();
+            }
+        }
+    }
+
+    void CalculateMovement()
+    {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         if (transform.position.y < -5.3)
         {
-            transform.position = new Vector3(Random.Range(-9f,9f), 7, 0);
+            transform.position = new Vector3(Random.Range(-9f, 9f), 7, 0);
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
