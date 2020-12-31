@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
+    private float _boost = 1.5f; //left shift boost
 
     [SerializeField]
     private int _lives = 3;
@@ -82,7 +83,14 @@ void Start()
         }
         else
         {
-            transform.Translate(direction * _speed * Time.deltaTime);
+            if (Input.GetKey(KeyCode.LeftShift)) //while left shift is held time - movement is multiplied by boost
+            {
+                transform.Translate(direction * _speed * _boost * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(direction * _speed * Time.deltaTime);
+            }
         }
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 0));
