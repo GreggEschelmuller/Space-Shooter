@@ -19,11 +19,14 @@ public class UIManager : MonoBehaviour
     private GameManager _gameManager;
     [SerializeField]
     private Text _shieldsText;
+    [SerializeField]
+    private Text _ammoText;
 
     void Start()
     {
         _scoreText.text = "Score: " + 0;
         _shieldsText.text = "Shields Health: " + 0;
+        _ammoText.text = "Ammo: " + 15;
         _gameOverText.gameObject.SetActive(false);
         _restartLevelText.gameObject.SetActive(false);
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
@@ -43,6 +46,11 @@ public class UIManager : MonoBehaviour
     public void UpdateShields(int shieldHealth)
     {
         _shieldsText.text = "Shields Health: " + shieldHealth.ToString();
+    }
+
+    public void UpdateAmmo(int ammo)
+    {
+        _ammoText.text = "Ammo: " + ammo.ToString();
     }
 
     public void UpdateLives(int currentLives)
