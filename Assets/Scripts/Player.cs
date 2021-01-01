@@ -202,4 +202,10 @@ void Start()
         _score += points;
         _uiManager.UpdateScore(_score);
     }
+
+    public void UpdateAmmo()
+    {
+        _ammo += 10;
+        _uiManager.UpdateAmmo(_ammo);
+    }
 }

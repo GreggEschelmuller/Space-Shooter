@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
             _explosion.Play();
 
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, 2.0f);
  
         }
         else if (other.tag == "Player")
