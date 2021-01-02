@@ -95,7 +95,7 @@ public class Enemy : MonoBehaviour
             _speed = 0;
             _explosion.Play();
 
-            Destroy(this.gameObject, 2.8f);
+            Destroy(this.gameObject, 2.0f);
         }
     }
 }

@@ -208,4 +208,23 @@ void Start()
         _ammo += 10;
         _uiManager.UpdateAmmo(_ammo);
     }
+
+    public void UpdateHealth()
+    {
+        if (_lives < 3)
+        {
+            if (_lives == 1)
+            {
+                _lives += 1;
+                _uiManager.UpdateLives(_lives);
+                _leftEngine.SetActive(false);
+            }
+            else if(_lives == 2)
+            {
+                _lives += 1;
+                _uiManager.UpdateLives(_lives);
+                _rightEngine.SetActive(false);
+            }
+        }
+    }
 }
