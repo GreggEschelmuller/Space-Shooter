@@ -22,9 +22,13 @@ public class Player : MonoBehaviour
     private bool _isTripleShotActive = false;
     private bool _isSpeedBoostActive = false;
     private bool _isShieldsActive = false;
+    private bool _isMultiShotActive = false;
     private int _shieldHealth = 3;
+
     [SerializeField]
     private GameObject _tripleShot;
+    [SerializeField]
+    private GameObject _multiShot;
 
     [SerializeField]
     private GameObject _shieldVisualizer;
@@ -117,6 +121,10 @@ void Start()
                 _ammo -= 1;
                 _uiManager.UpdateAmmo(_ammo);
             }
+            else if (_isMultiShotActive == true)
+            {
+                Instantiate(_multiShot, transform.position + new Vector3(-2.4f, 1.0f, -0.36f), Quaternion.identity);
+            }
             else
             {
                 Instantiate(_laserPrefab, transform.position + new Vector3(0, 1.05f, 0), Quaternion.identity);
@@ -187,6 +195,17 @@ void Start()
     {
         yield return new WaitForSeconds(5.0f);
         _isSpeedBoostActive = false;
+    }
+
+    public void MultiShotActive()
+    {
+        _isMultiShotActive = true;
+        StartCoroutine(MultiShotPowerDown());
+    }
+    IEnumerator MultiShotPowerDown()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isMultiShotActive = false;
     }
 
     public void ShieldActive()

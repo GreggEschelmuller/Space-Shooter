@@ -17,6 +17,7 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupRoutine());
+        StartCoroutine(MultiShotRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -41,9 +42,19 @@ public class SpawnManager : MonoBehaviour
             Instantiate(_powerups[randomPowerup], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(3, 8));
         }
-
     }
 
+    IEnumerator MultiShotRoutine()
+    {
+        yield return new WaitForSeconds(Random.Range(30, 45)); //Waits 30-45 seconds for first spawn
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Instantiate(_powerups[5], posToSpawn, Quaternion.identity); //_powerups[5] is the rare multishot powerup
+            yield return new WaitForSeconds(Random.Range(30, 60)); //Waits 30-60 seconds between spawns
+        }
+
+    }
     public void OnPlayerDeath()
     {
         _stopSpawning = true;
